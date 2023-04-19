@@ -2,6 +2,7 @@
 После его установки атрибут media будет учитываться
 
 Поместите скрипт в конце документа, где есть тег video с тегами <source media>
+```
 <script>
 // BuslikDrev полифил media
 if ('matchMedia' in window && window.navigator.userAgent.toLowerCase().match(/(chrome)\/(\d+\.)/)) {
@@ -26,5 +27,6 @@ if ('matchMedia' in window && window.navigator.userAgent.toLowerCase().match(/(c
 	})();
 }
 </script>
+```
 
 Или в документе в тегах source переименуйте атрибут "src" на "data-src", и тогда скрипт можно поместить в отделный файл и загружать в удобный для вас момент.
