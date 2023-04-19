@@ -17,12 +17,13 @@
         <source src="Videos/background_login_3840x2160.mp4" type="video/mp4" media="(min-width:2561px) and (max-width:3840px)">
         <source src="Videos/background_login_3840x2160.webm" type="video/webm" media="(min-width:2561px)">
       </video>
+    </main>
 <script>
-// полифил media
-if (window.navigator.userAgent.toLowerCase().match(/(chrome)\/(\d+\.)/)) {
-	(function() {
+// BuslikDrev полифил media
+if ('matchMedia' in window && window.navigator.userAgent.toLowerCase().match(/(chrome)\/(\d+\.)/)) {
 'use strict';
 'use asm';
+	(function() {
 		var i, v = document.querySelectorAll('video source[media]');
 
 		for (i = 0; i < v.length; ++i) {
@@ -41,6 +42,5 @@ if (window.navigator.userAgent.toLowerCase().match(/(chrome)\/(\d+\.)/)) {
 	})();
 }
 </script>
-    </main>
   </body>
 </html>
