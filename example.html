@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  </head>
+  <body>
+    <main>
+      <video autoplay="autoplay" preload="none" muted="false" loop="true">
+        <source src="Videos/background_login_1280x720.mp4" type="video/mp4" media="(max-width:1280px)">
+        <source src="Videos/background_login_1280x720.webm" type="video/webm" media="(max-width:1280px)">
+        <source src="Videos/background_login_1920x1080.mp4" type="video/mp4" media="(min-width:1281px) and (max-width:1920px)">
+        <source src="Videos/background_login_1920x1080.webm" type="video/webm" media="(min-width:1281px) and (max-width:1920px)">
+        <source src="Videos/background_login_2560x1440.mp4" type="video/mp4" media="(min-width:1921px) and (max-width:2560px)">
+        <source src="Videos/background_login_2560x1440.webm" type="video/webm" media="(min-width:1921px) and (max-width:2560px)">
+        <source src="Videos/background_login_3840x2160.mp4" type="video/mp4" media="(min-width:2561px) and (max-width:3840px)">
+        <source src="Videos/background_login_3840x2160.webm" type="video/webm" media="(min-width:2561px)">
+      </video>
+<script>
+// полифил media
+if (window.navigator.userAgent.toLowerCase().match(/(chrome)\/(\d+\.)/)) {
+	(function() {
+'use strict';
+'use asm';
+		var i, v = document.querySelectorAll('video source[media]');
+
+		for (i = 0; i < v.length; ++i) {
+			if (window.matchMedia(v[i].media).matches) {
+				if (v[i].getAttribute('data-src')) {
+					v[i].setAttribute('src', v[i].getAttribute('data-src'));
+					v[i].removeAttribute('data-src');
+				}
+			} else {
+				if (v[i].getAttribute('src')) {
+					v[i].setAttribute('data-src', v[i].getAttribute('src'));
+					v[i].removeAttribute('src');
+				}
+			}
+		}
+	})();
+}
+</script>
+    </main>
+  </body>
+</html>
