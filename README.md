@@ -16,7 +16,7 @@
 		if (typeof ex == 'undefined') {
 			ex = [];
 		}
-		var i, l, v = document.querySelectorAll('video source[media]');
+		var i, l, v = document.querySelectorAll('video source[media]:not([data-error])');
 		l = v.length;
 
 		for (i = 0; i < l; ++i) {
@@ -25,8 +25,7 @@
 					v[i].setAttribute('src', v[i].getAttribute('data-src'));
 					v[i].removeAttribute('data-src');
 					v[i].parentNode.addEventListener('error', function(e) {
-						e.target.removeAttribute('data-src');
-						e.target.removeAttribute('src');
+						e.target.setAttribute('data-error', e.target.src);
 						ex.push(e.target.src);
 						BusEngine.polyfillTagSource(ex);
 					});
