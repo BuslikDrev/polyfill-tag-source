@@ -20,17 +20,32 @@
     </main>
 <script>
 // BuslikDrev полифил media
-if ('matchMedia' in window && window.navigator.userAgent.toLowerCase().match(/(chrome)\/(\d+\.)/)) {
 'use strict';
 'use asm';
-	(function() {
-		var i, v = document.querySelectorAll('video source[media]');
+	// https://developer.mozilla.org/ru/docs/Web/API/HTMLMediaElement
+	if (!('BusEngine' in window)) {
+		window.BusEngine = {};
+	}
+	window.BusEngine.polyfillTagSource = function(ex) {
+		if (typeof ex == 'undefined') {
+			ex = [];
+		}
+		var i, l, v = document.querySelectorAll('video source[media]');
+		l = v.length;
 
-		for (i = 0; i < v.length; ++i) {
+		for (i = 0; i < l; ++i) {
 			if (window.matchMedia(v[i].media).matches) {
-				if (v[i].getAttribute('data-src')) {
+				if (v[i].getAttribute('data-src') && ex.indexOf(v[i].getAttribute('data-src')) == -1) {
 					v[i].setAttribute('src', v[i].getAttribute('data-src'));
 					v[i].removeAttribute('data-src');
+					v[i].parentNode.addEventListener('error', function(e) {
+						e.target.removeAttribute('data-src');
+						e.target.removeAttribute('src');
+						ex.push(e.target.src);
+						BusEngine.polyfillTagSource(ex);
+					});
+					v[i].parentNode.src = v[i].getAttribute('src');
+					break;
 				}
 			} else {
 				if (v[i].getAttribute('src')) {
@@ -39,8 +54,13 @@ if ('matchMedia' in window && window.navigator.userAgent.toLowerCase().match(/(c
 				}
 			}
 		}
-	})();
-}
+	};
+
+	if ('matchMedia' in window && window.navigator.userAgent.toLowerCase().match(/(chrome|busengine)\/(\d+\.)/)) {
+		//window.addEventListener('load', function() {
+			BusEngine.polyfillTagSource();
+		//});
+	}
 </script>
   </body>
 </html>
